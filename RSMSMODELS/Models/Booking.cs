@@ -51,6 +51,11 @@ namespace RSMSMODELS.Models
             set { mOtherDetails = value; }
         }
 
+        public Booking()
+        {
+
+        }
+
         public Booking(Guid pBookingID, string pContactName, DateTime pBookingDateTime, int pPartyNumber, bool pSpecialOccasion, string pOtherDetails)
         {
             BookingID = pBookingID;

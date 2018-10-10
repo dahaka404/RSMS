@@ -8,14 +8,14 @@ namespace BookingService
     {
         private readonly RSMSSERVICE.BookingService lBookingService;
 
-        public bool CreateBooking(Booking pBooking, List<Guid> pTables)
+        public bool CreateBooking(Booking pBooking)
         {
-            return lBookingService.CreateBooking(pBooking, pTables);
+            return lBookingService.CreateBooking(pBooking);
         }
 
-        public bool UpdateBooking(Booking pBooking, List<Guid> pTables)
+        public bool UpdateBooking(Booking pBooking)
         {
-            return lBookingService.UpdateBooking(pBooking, pTables);
+            return lBookingService.UpdateBooking(pBooking);
         }
 
         public bool CancelBooking(Guid pBookingID)
@@ -23,19 +23,44 @@ namespace BookingService
             return lBookingService.CancelBooking(pBookingID);
         }
 
-        public TableBooking GetBooking(Guid pBookingID)
+        public Booking GetBooking(Guid pBookingID)
         {
             return lBookingService.GetBooking(pBookingID);
         }
 
-        public List<TableBooking> GetBookingsFromPeriod(DateTime pDateFrom, DateTime pDateTo)
+        public List<Booking> GetBookingsFromPeriod(DateTime pDateFrom, DateTime pDateTo)
         {
             return lBookingService.GetBookingsFromPeriod(pDateFrom, pDateTo);
         }
 
-        public List<TableBooking> GetBookings()
+        public List<Booking> GetBookings()
         {
             return lBookingService.GetBookings();
+        }
+
+        public Booking GetTableBooking(Guid pBookingID)
+        {
+            return lBookingService.GetTableBooking(pBookingID);
+        }
+
+        public List<Booking> GetTableBookingsFromPeriod(DateTime pDateFrom, DateTime pDateTo)
+        {
+            return lBookingService.GetTableBookingsFromPeriod(pDateFrom, pDateTo);
+        }
+
+        public List<Booking> GetTableBookings()
+        {
+            return lBookingService.GetTableBookings();
+        }
+
+        public bool CreateTableBooking(Guid pBookingID, List<Guid> pTables)
+        {
+            return lBookingService.CreateTableBooking(pBookingID, pTables);
+        }
+
+        public bool UpdateTableBooking(Guid pBookingId, List<Guid> pOldTables, List<Guid> pNewTables)
+        {
+            return lBookingService.UpdateTableBooking(pBookingId, pOldTables, pNewTables);
         }
     }
 }

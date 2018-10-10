@@ -1,33 +1,44 @@
 ﻿using RSMSMODELS.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
 
 namespace BookingService
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
     [ServiceContract]
     public interface IBookingService
     {
         [OperationContract]
-        bool CreateBooking(Booking pBooking, List<Guid> pTables);
+        bool CreateBooking(Booking pBooking);
 
         [OperationContract]
-        bool UpdateBooking(Booking pBooking, List<Guid> pTables);
+        bool UpdateBooking(Booking pBooking);
 
         [OperationContract]
         bool CancelBooking(Guid pBookingID);
 
         [OperationContract]
-        TableBooking GetBooking(Guid pBookingID);
+        Booking GetBooking(Guid pBookingID);
 
         [OperationContract]
-        List<TableBooking> GetBookingsFromPeriod(DateTime pDateFrom, DateTime ToDate);
+        List<Booking> GetBookingsFromPeriod(DateTime pDateFrom, DateTime ToDate);
 
         [OperationContract]
-        List<TableBooking> GetBookings();
+        List<Booking> GetBookings();
+
+        [OperationContract]
+        Booking GetTableBooking(Guid pBookingID);
+
+        [OperationContract]
+        List<Booking> GetTableBookingsFromPeriod(DateTime pDateFrom, DateTime pDateTo);
+
+        [OperationContract]
+        List<Booking> GetTableBookings();
+
+        [OperationContract]
+        bool CreateTableBooking(Guid pBookingID, List<Guid> pTables);
+
+        [OperationContract]
+        bool UpdateTableBooking(Guid pBookingID, List<Guid> pOldTables, List<Guid> pNewTables);
     }
 }

@@ -9,7 +9,7 @@ namespace RSMSSERVICE
     {
         private readonly BookingRepository lBookingRepository;
 
-        public bool CreateBooking(Booking pBooking, List<Guid> pTables)
+        public bool CreateBooking(Booking pBooking)
         {
             bool IsComplete = false;
 
@@ -28,17 +28,6 @@ namespace RSMSSERVICE
 
                 lBookingRepository.InsertBooking(lBooking);
                 lBookingRepository.Save();
-
-                foreach(Guid lItem in pTables)
-                {
-                    RSMSDATAMODELS.Data_Models.TableBooking lTableBooking = new RSMSDATAMODELS.Data_Models.TableBooking();
-                    lTableBooking.BookingId = lBookingID;
-                    lTableBooking.TableId = lItem;
-
-                    lBookingRepository.InsertTableBooking(lTableBooking);
-                    lBookingRepository.Save();
-                }
-
             }
             catch(Exception ex)
             {
@@ -52,7 +41,7 @@ namespace RSMSSERVICE
             return IsComplete;
         }
 
-        public bool UpdateBooking(Booking pBooking, List<Guid> pTables)
+        public bool UpdateBooking(Booking pBooking)
         {
             bool IsComplete = false;
 
@@ -71,17 +60,6 @@ namespace RSMSSERVICE
 
                 lBookingRepository.UpdateBooking(lBooking);
                 lBookingRepository.Save();
-
-                foreach (Guid lItem in pTables)
-                {
-                    RSMSDATAMODELS.Data_Models.TableBooking lTableBooking = new RSMSDATAMODELS.Data_Models.TableBooking();
-                    lTableBooking.BookingId = lBookingID;
-                    lTableBooking.TableId = lItem;
-
-                    lBookingRepository.UpdateTableBooking(lTableBooking);
-                    lBookingRepository.Save();
-                }
-
             }
             catch (Exception ex)
             {
@@ -117,59 +95,63 @@ namespace RSMSSERVICE
             return IsComplete;
         }
 
-        public TableBooking GetBooking(Guid pBookngID)
+        public Booking GetBooking(Guid pBookingID)
         {
-            RSMSDATAMODELS.Data_Models.TableBooking tableBooking = new RSMSDATAMODELS.Data_Models.TableBooking();
-            TableBooking lTableBooking = new TableBooking();
+            RSMSDATAMODELS.Data_Models.Booking booking = new RSMSDATAMODELS.Data_Models.Booking();
+            Booking lBooking = new Booking();
 
             try
             {
-                tableBooking = lBookingRepository.GetBooking(pBookngID);
+                booking = lBookingRepository.GetBooking(pBookingID);
 
-                lTableBooking.BookingID = tableBooking.BookingId;
-                lTableBooking.TableID = tableBooking.TableId;
+                lBooking.BookingID = booking.Id;
+                lBooking.ContactName = booking.ContactName;
+                lBooking.BookingDateTime = booking.DateTime;
+                lBooking.PartyNumber = booking.PartyNumber;
+                lBooking.SpecialOccasion = booking.SpecialOccasion;
+                lBooking.OtherDetails = booking.OtherDetails;
             }
             catch(Exception ex)
             {
                 throw new Exception(String.Concat("Unable to retrieve booking! Error: ", ex.ToString()), new Exception(ex.ToString()));
             }
 
-            return lTableBooking;
+            return lBooking;
         }
 
-        public List<TableBooking> GetBookingsFromPeriod(DateTime pDateFrom, DateTime pDateTo)
+        public List<Booking> GetBookingsFromPeriod(DateTime pDateFrom, DateTime pDateTo)
         {
-            List<TableBooking> lTableBookings = new List<TableBooking>();
-            ICollection<RSMSDATAMODELS.Data_Models.TableBooking> tableBookings;
+            List<Booking> lBookings = new List<Booking>();
+            ICollection<RSMSDATAMODELS.Data_Models.Booking> bookings;
 
             try
             {
-                tableBookings = lBookingRepository.GetBookingsFromPeriod(pDateFrom, pDateTo);
+                bookings = lBookingRepository.GetBookingsFromPeriod(pDateFrom, pDateTo);
 
-                foreach(var lItem in tableBookings)
+                foreach(var lItem in bookings)
                 {
-                    lTableBookings.Add(new TableBooking(lItem.BookingId, lItem.TableId));
+                    lBookings.Add(new Booking(lItem.Id, lItem.ContactName, lItem.DateTime, lItem.PartyNumber, lItem.SpecialOccasion, lItem.OtherDetails));
                 }
             }
             catch(Exception ex)
             {
                 throw new Exception(String.Concat("Unable to retrieve bookings within this range! Error: ", ex.ToString()), new Exception(ex.ToString()));
             }
-            return lTableBookings;
+            return lBookings;
         }
 
-        public List<TableBooking> GetBookings()
+        public List<Booking> GetBookings()
         {
-            List<TableBooking> lTableBookings = new List<TableBooking>();
-            ICollection<RSMSDATAMODELS.Data_Models.TableBooking> tableBookings;
+            List<Booking> lBookings = new List<Booking>();
+            ICollection<RSMSDATAMODELS.Data_Models.Booking> lbookings;
 
             try
             {
-                tableBookings = lBookingRepository.GetBookings();
+                lbookings = lBookingRepository.GetBookings();
 
-                foreach(var lItem in tableBookings)
+                foreach(var lItem in lbookings)
                 {
-                    lTableBookings.Add(new TableBooking(lItem.BookingId, lItem.TableId));
+                    lBookings.Add(new Booking(lItem.Id, lItem.ContactName, lItem.DateTime, lItem.PartyNumber, lItem.SpecialOccasion, lItem.OtherDetails));
                 }
             }
             catch(Exception ex)
@@ -177,7 +159,134 @@ namespace RSMSSERVICE
                 throw new Exception(String.Concat("Unable to retrieve bookings! Error: ", ex.ToString()), new Exception(ex.ToString()));
             }
 
+            return lBookings;
+        }
+
+        public Booking GetTableBooking(Guid pBookingID)
+        {
+            RSMSDATAMODELS.Data_Models.Booking booking = new RSMSDATAMODELS.Data_Models.Booking();
+            Booking lBooking = new Booking();
+
+            try
+            {
+                booking = lBookingRepository.GetBooking(pBookingID);
+
+                lBooking.BookingID = booking.Id;
+                lBooking.ContactName = booking.ContactName;
+                lBooking.BookingDateTime = booking.DateTime;
+                lBooking.PartyNumber = booking.PartyNumber;
+                lBooking.SpecialOccasion = booking.SpecialOccasion;
+                lBooking.OtherDetails = booking.OtherDetails;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(String.Concat("Unable to retrieve table booking! Error: ", ex.ToString()), new Exception(ex.ToString()));
+            }
+
+            return lBooking;
+        }
+
+        public List<Booking> GetTableBookingsFromPeriod(DateTime pDateFrom, DateTime pDateTo)
+        {
+            List<Booking> lTableBookings = new List<Booking>();
+            ICollection<RSMSDATAMODELS.Data_Models.Booking> tablebookings;
+
+            try
+            {
+                tablebookings = lBookingRepository.GetTableBookingsFromPeriod(pDateFrom, pDateTo);
+
+                foreach (var lItem in tablebookings)
+                {
+                    lTableBookings.Add(new Booking(lItem.Id, lItem.ContactName, lItem.DateTime, lItem.PartyNumber, lItem.SpecialOccasion, lItem.OtherDetails));
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(String.Concat("Unable to retrieve table bookings within this range! Error: ", ex.ToString()), new Exception(ex.ToString()));
+            }
             return lTableBookings;
+        }
+
+        public List<Booking> GetTableBookings()
+        {
+            List<Booking> lTableBookings = new List<Booking>();
+            ICollection<RSMSDATAMODELS.Data_Models.Booking> tablebookings;
+
+            try
+            {
+                tablebookings = lBookingRepository.GetBookings();
+
+                foreach (var lItem in tablebookings)
+                {
+                    lTableBookings.Add(new Booking(lItem.Id, lItem.ContactName, lItem.DateTime, lItem.PartyNumber, lItem.SpecialOccasion, lItem.OtherDetails));
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(String.Concat("Unable to retrieve table bookings! Error: ", ex.ToString()), new Exception(ex.ToString()));
+            }
+
+            return lTableBookings;
+        }
+
+        public bool CreateTableBooking(Guid pBookingId, List<Guid> pTables)
+        {
+            bool IsComplete = false;
+
+            try
+            {
+                foreach(var lItem in pTables)
+                {
+                    RSMSDATAMODELS.Data_Models.TableBooking lTableBooking = new RSMSDATAMODELS.Data_Models.TableBooking();
+
+                    lTableBooking.BookingId = pBookingId;
+                    lTableBooking.TableId = lItem;
+
+                    lBookingRepository.InsertTableBooking(lTableBooking);
+                    lBookingRepository.Save();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(String.Concat("Table Booking Not Created! Error: ", ex.ToString()), new Exception(ex.ToString()));
+            }
+            finally
+            {
+                IsComplete = true;
+            }
+
+            return IsComplete;
+        }
+
+        public bool UpdateTableBooking(Guid pBookingId, List<Guid> pOldTables, List<Guid> pNewTables)
+        {
+            bool IsComplete = false;
+
+            try
+            {
+                lBookingRepository.DeleteTableBooking(pBookingId);
+
+                foreach(var lItem in pNewTables)
+                {
+                    RSMSDATAMODELS.Data_Models.TableBooking lTableBooking = new RSMSDATAMODELS.Data_Models.TableBooking();
+
+                    lTableBooking.BookingId = pBookingId;
+                    lTableBooking.TableId = lItem;
+
+                    lBookingRepository.InsertTableBooking(lTableBooking);
+                    lBookingRepository.Save();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(String.Concat("Table Booking Not Updated! Error: ", ex.ToString()), new Exception(ex.ToString()));
+            }
+            finally
+            {
+                IsComplete = true;
+            }
+
+            return IsComplete;
         }
     }
 }

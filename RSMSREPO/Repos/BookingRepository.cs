@@ -19,34 +19,33 @@ namespace RSMSREPO.Repos
             this.BookingContext = pBookingContext;
         }
 
-        public ICollection<TableBooking> GetBookings()
+        public ICollection<Booking> GetBookings()
         {
-            return BookingContext.TableBooking.ToList();
+            return BookingContext.Booking.ToList();
         }
 
-        public ICollection<TableBooking> GetBookingsFromPeriod(DateTime pDateFrom, DateTime pDateTo)
+        public ICollection<Booking> GetBookingsFromPeriod(DateTime pDateFrom, DateTime pDateTo)
         {
-            var lTableBookings = from booking in BookingContext.Booking
-                                 join tablebooking in BookingContext.TableBooking
-                                    on booking.Id equals tablebooking.BookingId
-                                 join table in BookingContext.Table
-                                    on tablebooking.TableId equals table.Id
+            var lBookings = from booking in BookingContext.Booking
                                  select new
                                  {
-                                     tablebooking.BookingId,
-                                     tablebooking.TableId,
-                                     booking.DateTime
+                                     booking.Id,
+                                     booking.ContactName,
+                                     booking.DateTime,
+                                     booking.PartyNumber,
+                                     booking.SpecialOccasion,
+                                     booking.OtherDetails
                                  };
 
-            var list = lTableBookings.Where(tb => tb.DateTime >= pDateFrom && tb.DateTime <= pDateTo).ToList();
+            var list = lBookings.Where(b => b.DateTime >= pDateFrom && b.DateTime <= pDateTo).ToList();
 
-            return list.Select(tb => new { tb.BookingId, tb.TableId }).ToList() as ICollection<TableBooking>;
+            return list as ICollection<Booking>;
                                                     
         }
 
-        public TableBooking GetBooking(Guid pBookingID)
+        public Booking GetBooking(Guid pBookingID)
         {
-            return BookingContext.TableBooking.Find(pBookingID);
+            return BookingContext.Booking.Find(pBookingID);
         }
 
         public void InsertBooking(Booking pBooking)
@@ -61,8 +60,74 @@ namespace RSMSREPO.Repos
 
         public void DeleteBooking(Guid pBookingID)
         {
-            TableBooking lTableBooking = BookingContext.TableBooking.Find(pBookingID);
-            BookingContext.TableBooking.Remove(lTableBooking);
+            Booking lBooking = BookingContext.Booking.Find(pBookingID);
+            if(lBooking != null)
+            {
+                BookingContext.Booking.Remove(lBooking);
+            }
+        }
+
+        public Booking GetTableBooking(Guid pBookingID)
+        {
+            var lTableBooking = from booking in BookingContext.Booking
+                                join tablebooking in BookingContext.TableBooking
+                                   on booking.Id equals tablebooking.BookingId
+                                join table in BookingContext.Table
+                                   on tablebooking.TableId equals table.Id
+                                select new
+                                {
+                                    booking.Id,
+                                    booking.ContactName,
+                                    booking.DateTime,
+                                    booking.PartyNumber,
+                                    booking.SpecialOccasion,
+                                    booking.OtherDetails,
+                                    table.Number
+                                };
+
+            return lTableBooking.Where(b => b.Id == pBookingID) as Booking;
+        }
+
+        public ICollection<Booking> GetTableBookings()
+        {
+            var lTableBookings = from booking in BookingContext.Booking
+                                 join tablebooking in BookingContext.TableBooking
+                                    on booking.Id equals tablebooking.BookingId
+                                 join table in BookingContext.Table
+                                    on tablebooking.TableId equals table.Id
+                                 select new
+                                 {
+                                     booking.Id,
+                                     booking.ContactName,
+                                     booking.DateTime,
+                                     booking.PartyNumber,
+                                     booking.SpecialOccasion,
+                                     booking.OtherDetails,
+                                     table.Number
+                                 };
+
+            return lTableBookings.ToList() as ICollection<Booking>;
+        }
+
+        public ICollection<Booking> GetTableBookingsFromPeriod(DateTime pDateFrom, DateTime pDateTo)
+        {
+            var lTableBookings = from booking in BookingContext.Booking
+                                    join tablebooking in BookingContext.TableBooking
+                                        on booking.Id equals tablebooking.BookingId
+                                    join table in BookingContext.Table
+                                        on tablebooking.TableId equals table.Id
+                                 select new
+                                 {
+                                     booking.Id,
+                                     booking.ContactName,
+                                     booking.DateTime,
+                                     booking.PartyNumber,
+                                     booking.SpecialOccasion,
+                                     booking.OtherDetails,
+                                     table.Number
+                                 };
+
+            return lTableBookings.Where(b => b.DateTime >= pDateFrom && b.DateTime <= pDateTo).ToList() as ICollection<Booking>;
         }
 
         public void InsertTableBooking(TableBooking pTableBooking)
@@ -78,7 +143,10 @@ namespace RSMSREPO.Repos
         public void DeleteTableBooking(Guid pBookingID)
         {
             TableBooking lTableBooking = BookingContext.TableBooking.Find(pBookingID);
-            BookingContext.TableBooking.Remove(lTableBooking);
+            if(lTableBooking != null)
+            {
+                BookingContext.TableBooking.Remove(lTableBooking);
+            }
         }
 
         public void Save()

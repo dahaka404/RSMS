@@ -1,6 +1,6 @@
 ﻿namespace RSMS
 {
-    partial class SplashScreen
+    partial class frmSplashScreen
     {
         /// <summary>
         /// Required designer variable.
@@ -28,25 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grpRSMS = new System.Windows.Forms.GroupBox();
+            this.btnBookings = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
+            this.grpRSMS.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // grpRSMS
             // 
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Location = new System.Drawing.Point(32, 22);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(485, 403);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.grpRSMS.Controls.Add(this.btnBookings);
+            this.grpRSMS.Controls.Add(this.button1);
+            this.grpRSMS.Location = new System.Drawing.Point(32, 22);
+            this.grpRSMS.Name = "grpRSMS";
+            this.grpRSMS.Size = new System.Drawing.Size(485, 403);
+            this.grpRSMS.TabIndex = 0;
+            this.grpRSMS.TabStop = false;
+            this.grpRSMS.Text = "RSMS";
+            // 
+            // btnBookings
+            // 
+            this.btnBookings.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBookings.Location = new System.Drawing.Point(54, 121);
+            this.btnBookings.Name = "btnBookings";
+            this.btnBookings.Size = new System.Drawing.Size(379, 47);
+            this.btnBookings.TabIndex = 1;
+            this.btnBookings.Text = "Bookings";
+            this.btnBookings.UseVisualStyleBackColor = true;
+            this.btnBookings.Click += new System.EventHandler(this.btnBookings_Click);
             // 
             // button1
             // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(54, 47);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(379, 51);
@@ -54,32 +66,23 @@
             this.button1.Text = "Floor Management";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(54, 121);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(379, 47);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Bookings";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // SplashScreen
+            // frmSplashScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(551, 450);
-            this.Controls.Add(this.groupBox1);
-            this.Name = "SplashScreen";
+            this.Controls.Add(this.grpRSMS);
+            this.Name = "frmSplashScreen";
             this.Text = "SplashScreen";
-            this.groupBox1.ResumeLayout(false);
+            this.grpRSMS.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.GroupBox grpRSMS;
+        private System.Windows.Forms.Button btnBookings;
         private System.Windows.Forms.Button button1;
     }
 }

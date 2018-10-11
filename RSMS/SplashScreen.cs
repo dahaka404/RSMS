@@ -10,11 +10,22 @@ using System.Windows.Forms;
 
 namespace RSMS
 {
-    public partial class SplashScreen : Form
+    public partial class frmSplashScreen : Form
     {
-        public SplashScreen()
+        BookingServiceRef.BookingServiceClient lBookingServiceClient;
+
+        public frmSplashScreen(BookingServiceRef.BookingServiceClient pBookingServiceClient)
         {
             InitializeComponent();
+            lBookingServiceClient = pBookingServiceClient;
+        }
+
+        private void btnBookings_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            frmBookingManagement lfrmBookingManagement = new frmBookingManagement(lBookingServiceClient);
+            lfrmBookingManagement.ShowDialog();
+            this.Close();
         }
     }
 }

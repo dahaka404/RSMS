@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="80691cf4-e441-4228-b10b-511dac638801" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="3ad0e241-a2c0-4b1d-bf63-57ca0b5ff130" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,10 +22,11 @@
     <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/BookingService/Service1/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="953e6dcb-7351-4c8b-b01b-727e101f897e" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/BookingService/Service1/mex" />
-    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="790744c6-d466-4db3-9ae4-b8d7d42e3851" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/BookingService/Service1/mex" />
-    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="c8f12deb-9b18-4d2e-9046-4ecbf5c84335" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/BookingService/Service1/mex" />
-    <MetadataFile FileName="BookingService.xsd" MetadataType="Schema" ID="2b5e1597-85c5-4194-919f-4fe0a92435df" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/BookingService/Service1/mex" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="b3130dea-b280-4d18-92e8-343986e8b870" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/BookingService/Service1/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="9471fef9-5a76-40db-a844-b6f87e5f0466" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/BookingService/Service1/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="ce016a38-f167-4a4d-adae-cfbcf3c9c20c" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/BookingService/Service1/mex" />
+    <MetadataFile FileName="RSMSMODELS.Models.xsd" MetadataType="Schema" ID="3cde7ca8-9396-4ae5-854a-2fa813285c29" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/BookingService/Service1/mex" />
+    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="722fe78a-5a17-43ba-bd63-134668644cbb" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/BookingService/Service1/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

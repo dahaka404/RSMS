@@ -7,7 +7,7 @@ namespace RSMSSERVICE
 {
     public class BookingService
     {
-        private readonly BookingRepository lBookingRepository;
+        private readonly BookingRepository lBookingRepository = new BookingRepository();
 
         public bool CreateBooking(Booking pBooking)
         {
@@ -17,7 +17,7 @@ namespace RSMSSERVICE
             {
                 RSMSDATAMODELS.Data_Models.Booking lBooking = new RSMSDATAMODELS.Data_Models.Booking();
 
-                Guid lBookingID = new Guid();
+                Guid lBookingID = Guid.NewGuid();
 
                 lBooking.Id = lBookingID;
                 lBooking.ContactName = pBooking.ContactName;
@@ -237,10 +237,11 @@ namespace RSMSSERVICE
             {
                 foreach(var lItem in pTables)
                 {
-                    RSMSDATAMODELS.Data_Models.TableBooking lTableBooking = new RSMSDATAMODELS.Data_Models.TableBooking();
-
-                    lTableBooking.BookingId = pBookingId;
-                    lTableBooking.TableId = lItem;
+                    RSMSDATAMODELS.Data_Models.TableBooking lTableBooking = new RSMSDATAMODELS.Data_Models.TableBooking
+                    {
+                        BookingId = pBookingId,
+                        TableId = lItem
+                    };
 
                     lBookingRepository.InsertTableBooking(lTableBooking);
                     lBookingRepository.Save();
@@ -268,10 +269,11 @@ namespace RSMSSERVICE
 
                 foreach(var lItem in pNewTables)
                 {
-                    RSMSDATAMODELS.Data_Models.TableBooking lTableBooking = new RSMSDATAMODELS.Data_Models.TableBooking();
-
-                    lTableBooking.BookingId = pBookingId;
-                    lTableBooking.TableId = lItem;
+                    RSMSDATAMODELS.Data_Models.TableBooking lTableBooking = new RSMSDATAMODELS.Data_Models.TableBooking
+                    {
+                        BookingId = pBookingId,
+                        TableId = lItem
+                    };
 
                     lBookingRepository.InsertTableBooking(lTableBooking);
                     lBookingRepository.Save();

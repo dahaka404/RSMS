@@ -6,7 +6,7 @@ namespace BookingService
 {
     public class BookingService : IBookingService
     {
-        private readonly RSMSSERVICE.BookingService lBookingService;
+        private readonly RSMSSERVICE.BookingService lBookingService = new RSMSSERVICE.BookingService();
 
         public bool CreateBooking(Booking pBooking)
         {

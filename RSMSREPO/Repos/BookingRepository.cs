@@ -12,7 +12,10 @@ namespace RSMSREPO.Repos
 {
     public class BookingRepository : IBookingRepository, IDisposable
     {
-        private RSMSDBContext BookingContext;
+        private RSMSDBContext BookingContext = new RSMSDBContext();
+
+        public BookingRepository()
+        { }
 
         public BookingRepository(RSMSDBContext pBookingContext)
         {

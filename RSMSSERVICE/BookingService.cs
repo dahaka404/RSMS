@@ -20,9 +20,11 @@ namespace RSMSSERVICE
                 Guid lBookingID = Guid.NewGuid();
 
                 lBooking.Id = lBookingID;
-                lBooking.ContactName = pBooking.ContactName;
+                lBooking.ContactName = String.IsNullOrEmpty(pBooking.ContactName) ? throw new ArgumentNullException("Contact Name must be provided!", new Exception("Contact Name cannot be Null or Empty!")) : pBooking.ContactName;
                 lBooking.DateTime = pBooking.BookingDateTime;
-                lBooking.PartyNumber = pBooking.PartyNumber;
+                lBooking.PartyNumber = pBooking.PartyNumber > 80 ? 
+                                       throw new ArgumentOutOfRangeException("Members in a party cannot be more than 80, this booking will be a special request", new Exception("Party number Out of Range")) : 
+                                       pBooking.PartyNumber <= 0 ? throw new ArgumentOutOfRangeException("Members in a party need to be more than 0", new Exception("Party number Out of Range")): pBooking.PartyNumber;
                 lBooking.SpecialOccasion = pBooking.SpecialOccasion;
                 lBooking.OtherDetails = pBooking.OtherDetails;
 
@@ -52,9 +54,11 @@ namespace RSMSSERVICE
                 Guid lBookingID = new Guid();
 
                 lBooking.Id = lBookingID;
-                lBooking.ContactName = pBooking.ContactName;
+                lBooking.ContactName = String.IsNullOrEmpty(pBooking.ContactName) ? throw new ArgumentNullException("Contact Name must be provided!", new Exception("Contact Name cannot be Null or Empty!")) : pBooking.ContactName;
                 lBooking.DateTime = pBooking.BookingDateTime;
-                lBooking.PartyNumber = pBooking.PartyNumber;
+                lBooking.PartyNumber = pBooking.PartyNumber > 80 ?
+                                       throw new ArgumentOutOfRangeException("Members in a party cannot be more than 80, this booking will be a special request", new Exception("Party number Out of Range")) :
+                                       pBooking.PartyNumber <= 0 ? throw new ArgumentOutOfRangeException("Members in a party need to be more than 0", new Exception("Party number Out of Range")) : pBooking.PartyNumber;
                 lBooking.SpecialOccasion = pBooking.SpecialOccasion;
                 lBooking.OtherDetails = pBooking.OtherDetails;
 
